@@ -10,6 +10,7 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -56,8 +57,18 @@ public class RobotContainer {
         .onTrue(new ExampleCommand(drive));
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-    // cancelling on release.
+    // cancelling on release.)
     driverController.b().whileTrue(drive.exampleMethodCommand());
+
+    driverController.a().onTrue((new RunCommand(() -> drive.maxMotionPosition(), drive)));
+    driverController.x().onTrue((new InstantCommand(() -> drive.drive(0,0), drive)));
+    driverController.povUp().onTrue(new InstantCommand(() -> drive.setLeftSetpoint(1.0), drive));
+    driverController.povDown().onTrue(new InstantCommand(() -> drive.setLeftSetpoint(0.0), drive));
+
+    
+
+
+
   }
 
   /**
