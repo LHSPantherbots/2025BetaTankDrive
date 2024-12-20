@@ -24,7 +24,7 @@ public class DriveSubsystem extends SubsystemBase {
 
     private final int rightDriveCANid = 19;
     private final int rightFollowerCANid = 3;
-    private final int leftDriveCANid = 13;
+    private final int leftDriveCANid = 14;
     private final int leftFollowerCANid = 1;
     private final double DRIVE_GEAR_RATIO = (50.0/14.0)*(48.0/16.0);
     private final double WHEEL_CIRCUMFERENCE_METER = Math.PI*6.0*25.4/1000.0;
