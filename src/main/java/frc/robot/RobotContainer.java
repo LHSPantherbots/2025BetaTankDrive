@@ -4,16 +4,17 @@
 
 package frc.robot;
 
-import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Autos;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.DriveSubsystem;
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.OperatorConstants;
+// import frc.robot.commands.Autos;
+import frc.robot.commands.ExampleCommand;
+import frc.robot.subsystems.AlgaeIntakeSubsystem;
+import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.Drivetrain;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -23,11 +24,17 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final DriveSubsystem drive = new DriveSubsystem();
+  private final Drivetrain drive = new Drivetrain();
+  private final ArmSubsystem arm = new ArmSubsystem();
+  private final AlgaeIntakeSubsystem intakeAlgae = new AlgaeIntakeSubsystem();
+
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
+
+  private final CommandXboxController operatorController =
+      new CommandXboxController(OperatorConstants.kOperatorControllerPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -53,18 +60,23 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    new Trigger(drive::exampleCondition)
-        .onTrue(new ExampleCommand(drive));
+    // new Trigger(drive::exampleCondition)
+    //     .onTrue(new ExampleCommand(drive));
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.)
-    driverController.b().whileTrue(drive.exampleMethodCommand());
+    // driverController.b().whileTrue(drive.exampleMethodCommand());
 
-    driverController.a().onTrue((new RunCommand(() -> drive.maxMotionPosition(), drive)));
-    driverController.x().onTrue((new InstantCommand(() -> drive.drive(0,0), drive)));
-    driverController.povUp().onTrue(new InstantCommand(() -> drive.setLeftSetpoint(1.0), drive));
-    driverController.povDown().onTrue(new InstantCommand(() -> drive.setLeftSetpoint(0.0), drive));
+    // driverController.a().onTrue((new RunCommand(() -> drive.maxMotionPosition(), drive)));
+    // driverController.x().onTrue((new InstantCommand(() -> drive.drive(0,0), drive)));
+    // driverController.povUp().onTrue(new InstantCommand(() -> drive.setLeftSetpoint(1.0), drive));
+    // driverController.povDown().onTrue(new InstantCommand(() -> drive.setLeftSetpoint(0.0), drive));
 
+    operatorController.y().onTrue((new InstantCommand(() -> arm.armUp(), arm)));
+    operatorController.x().onTrue((new InstantCommand(() -> arm.armDown(), arm)));
+    operatorController.a().onTrue((new InstantCommand(() -> arm.armStop(), arm)));
+    operatorController.rightTrigger().whileTrue(new InstantCommand(() -> intakeAlgae.Intake(), intakeAlgae)).whileFalse(new InstantCommand(() -> intakeAlgae.IntakeStop(), intakeAlgae));
+    operatorController.leftTrigger().whileTrue(new InstantCommand(() -> intakeAlgae.Outtake(), intakeAlgae)).whileFalse(new InstantCommand(() -> intakeAlgae.IntakeStop(), intakeAlgae));
     
 
 
@@ -76,8 +88,8 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
-    // An example command will be run in autonomous
-    return Autos.exampleAuto(drive);
-  }
+  // public Command getAutonomousCommand() {
+  //   // An example command will be run in autonomous
+  //   // return Autos.exampleAuto(drive);
+  // }
 }
