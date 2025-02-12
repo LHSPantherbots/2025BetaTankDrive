@@ -21,10 +21,11 @@ public class Drivetrain extends SubsystemBase {
   private static final double kWheelRadius = 0.0508; // meters
   private static final int kEncoderResolution = 4096;
 
-  private final WPI_VictorSPX m_leftLeader = new WPI_VictorSPX(1);
-  private final WPI_VictorSPX m_rightLeader = new WPI_VictorSPX(2);
-  private final WPI_VictorSPX m_leftFollower = new WPI_VictorSPX(3); //left follower might be broken
-  private final WPI_VictorSPX m_rightFollower = new WPI_VictorSPX(4);
+  private final WPI_VictorSPX m_leftLeader = new WPI_VictorSPX(3);
+  private final WPI_VictorSPX m_rightLeader = new WPI_VictorSPX(4
+  );
+  private final WPI_VictorSPX m_leftFollower = new WPI_VictorSPX(1); //left follower might be broken
+  private final WPI_VictorSPX m_rightFollower = new WPI_VictorSPX(2);
 
   private final Encoder m_leftEncoder = new Encoder(0, 1);
   private final Encoder m_rightEncoder = new Encoder(2, 3);
@@ -53,17 +54,16 @@ public class Drivetrain extends SubsystemBase {
 
     
     m_leftFollower.follow(m_leftLeader);
-    //m_rightFollower.follow(m_rightLeader);
-    //m_rightLeader.follow(m_rightFollower);
+    m_rightFollower.follow(m_rightLeader);
      m_drive = new DifferentialDrive(m_leftLeader, m_rightLeader);
 
     // We need to invert one side of the drivetrain so that positive voltages
     // result in both sides moving forward. Depending on how your robot's
     // gearbox is constructed, you might have to invert the left side instead.
-    m_rightLeader.setInverted(false);
+    m_rightLeader.setInverted(true);
     m_rightFollower.setInverted(true);
     m_leftLeader.setInverted(false);
-    m_leftFollower.setInverted(true);
+    m_leftFollower.setInverted(false);
     // Set the distance per pulse for the drive encoders. We can simply use the
     // distance traveled for one rotation of the wheel divided by the encoder
     // resolution.
