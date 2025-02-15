@@ -8,19 +8,19 @@ import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class ExampleCommand extends Command {
+public class DriveForward extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Drivetrain m_subsystem;
+  private final Drivetrain m_driveTrain;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ExampleCommand(Drivetrain subsystem) {
-    m_subsystem = subsystem;
+  public DriveForward(Drivetrain drive) {
+    this.m_driveTrain = drive;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    addRequirements(drive);
   }
 
   // Called when the command is initially scheduled.
@@ -29,15 +29,26 @@ public class ExampleCommand extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+        m_driveTrain.drive(1, 0.0); // is x supposed to be y?
+        m_driveTrain.withTimeout(8.0);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+   m_driveTrain.stop();
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;
   }
+
+// public static Command RunCommand(Drivetrain drive) {
+//     // TODO Auto-generated method stub
+   
+// }
+  
 }

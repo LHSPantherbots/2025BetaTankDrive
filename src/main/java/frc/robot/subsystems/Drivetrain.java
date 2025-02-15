@@ -22,9 +22,8 @@ public class Drivetrain extends SubsystemBase {
   private static final int kEncoderResolution = 4096;
 
   private final WPI_VictorSPX m_leftLeader = new WPI_VictorSPX(3);
-  private final WPI_VictorSPX m_rightLeader = new WPI_VictorSPX(4
-  );
-  private final WPI_VictorSPX m_leftFollower = new WPI_VictorSPX(1); //left follower might be broken
+  private final WPI_VictorSPX m_rightLeader = new WPI_VictorSPX(4);
+  private final WPI_VictorSPX m_leftFollower = new WPI_VictorSPX(1);
   private final WPI_VictorSPX m_rightFollower = new WPI_VictorSPX(2);
 
   private final Encoder m_leftEncoder = new Encoder(0, 1);
@@ -96,8 +95,12 @@ public class Drivetrain extends SubsystemBase {
   public void drive(double xSpeed, double rot) {
       m_drive.arcadeDrive(xSpeed, rot);
      // m_drive.curvatureDrive(ySpeed, zRot, false);
-
   }
+
+  public void stop() {
+    m_drive.stopMotor();
+   // m_drive.curvatureDrive(ySpeed, zRot, false);
+}
 
  
 
@@ -107,5 +110,10 @@ public class Drivetrain extends SubsystemBase {
     m_odometry.update(
         m_gyro.getRotation2d(), m_leftEncoder.getDistance(), m_rightEncoder.getDistance());
   }
+
+public void withTimeout(double d) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'withTimeout'");
+}
 }
 

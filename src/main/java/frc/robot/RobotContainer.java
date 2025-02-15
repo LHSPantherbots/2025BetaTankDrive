@@ -7,11 +7,12 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 // import frc.robot.commands.Autos;
-import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.DriveForward;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.Drivetrain;
@@ -28,6 +29,9 @@ public class RobotContainer {
   private final ArmSubsystem arm = new ArmSubsystem();
   private final AlgaeIntakeSubsystem intakeAlgae = new AlgaeIntakeSubsystem();
 
+  private final DriveForward autoDriveForward = new DriveForward(drive);
+
+   
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController driverController =
@@ -45,7 +49,7 @@ public class RobotContainer {
         // The left stick controls translation of the robot.
         // Turning is controlled by the X axis of the right stick.
         new RunCommand(() -> drive.drive(-driverController.getLeftY(),
-                                          driverController.getRightY()
+                                          driverController.getRightY() 
                                           ),drive));
   }
 
@@ -87,10 +91,15 @@ public class RobotContainer {
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
+   * 
    */
-  // public Command getAutonomousCommand() {
-  //   // An example command will be run in autonomous
-  //   // return Autos.exampleAuto(drive);
-  // }
+  public Command getAutonomousCommand() {
+     // An example command will be run in autonomous
+     // return Autos.exampleAuto(drive);
+
+     //return new RunCommand(() -> autoDriveForward.execute().andThen(autoDriveForward.end(false)));
+
+    return new SequentialCommandGroup(autoDriveForward);
+ }
 }
 
