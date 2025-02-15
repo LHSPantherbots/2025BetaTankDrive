@@ -5,12 +5,15 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.Drivetrain;
+import edu.wpi.first.units.measure.Time;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 
 /** An example command that uses an example subsystem. */
 public class DriveForward extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Drivetrain m_driveTrain;
+  long i;
 
   /**
    * Creates a new ExampleCommand.
@@ -25,15 +28,20 @@ public class DriveForward extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    i = 0;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-        m_driveTrain.drive(1, 0.0); // is x supposed to be y?
-        m_driveTrain.withTimeout(8.0);
+        m_driveTrain.drive(0.5, 0.0); //TODO: TEST THAT THIS ACTUALLY WORKS 
+        //WithTimeout was removed because the method in drive just throws an error
+        //if we want to use WithTimeout, we have to implement it.
+        // the following is an attempt to make a solution was meant to implement
+        i++;
+        
   }
-
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
@@ -43,11 +51,16 @@ public class DriveForward extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if(i == 300){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 
 // public static Command RunCommand(Drivetrain drive) {
-//     // TODO Auto-generated method stub
+//     // TODO: Auto-generated method stub
    
 // }
   

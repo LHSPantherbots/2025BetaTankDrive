@@ -113,6 +113,7 @@ public class Drivetrain extends SubsystemBase {
 
 public void withTimeout(double d) {
     // TODO Auto-generated method stub
+    //m_drive.wait((long)d*1000); TODO: FIGURE OUT HOW TO IMPLEMENT
     throw new UnsupportedOperationException("Unimplemented method 'withTimeout'");
 }
 }
