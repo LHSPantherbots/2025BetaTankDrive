@@ -19,6 +19,6 @@ public final class Constants {
   }
 
   public static final class AlgaeConstants{
-    public static final int kAlgae = 11;
+    public static final int kAlgae = 26;
 }
 }
