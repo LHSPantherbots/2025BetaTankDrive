@@ -64,7 +64,10 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during autonomous. */
   //@Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+
+  //m_robotContainer.getAutonomousCommand();
+  }
 
   @Override
   public void teleopInit() {
@@ -98,4 +101,19 @@ public class Robot extends TimedRobot {
   /** This function is called periodically whilst in simulation. */
   @Override
   public void simulationPeriodic() {}
+
+  @Override
+  public void autonomousInit() {
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+
+    // schedule the autonomous command (example)
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.schedule();
+    }
+  }
+
+//   @Override
+//   public void autonomousPeriodic() {}
+
+
 }
