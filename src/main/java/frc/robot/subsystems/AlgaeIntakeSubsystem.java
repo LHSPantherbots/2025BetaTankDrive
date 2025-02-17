@@ -29,7 +29,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase{
 
 /* .getCurrent acts both as a getter ans setter*/
     public void Intake(){
-        m_AlgaeIntake.set(0.50); // puts the speed of the motor 
+        m_AlgaeIntake.set(0.65); // puts the speed of the motor 
     }
 
     public void IntakeStop(){
@@ -37,7 +37,7 @@ public class AlgaeIntakeSubsystem extends SubsystemBase{
     }
 
     public void Outtake(){
-        m_AlgaeIntake.set(-0.2); // puts the speed of the motor to go backwards 
+        m_AlgaeIntake.set(-0.65); // puts the speed of the motor to go backwards 
     }
 
 }

@@ -93,7 +93,7 @@ public class Drivetrain extends SubsystemBase {
    * @param rot Angular velocity in rad/s.
    */
   public void drive(double xSpeed, double rot) {
-      m_drive.arcadeDrive(xSpeed, rot);
+      m_drive.arcadeDrive(xSpeed, -rot);
      // m_drive.curvatureDrive(ySpeed, zRot, false);
   }
 
