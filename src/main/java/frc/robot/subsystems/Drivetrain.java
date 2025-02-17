@@ -93,7 +93,7 @@ public class Drivetrain extends SubsystemBase {
    * @param rot Angular velocity in rad/s.
    */
   public void drive(double xSpeed, double rot) {
-      m_drive.arcadeDrive(xSpeed, rot);
+      m_drive.arcadeDrive(xSpeed, -rot);
      // m_drive.curvatureDrive(ySpeed, zRot, false);
   }
 
@@ -113,6 +113,7 @@ public class Drivetrain extends SubsystemBase {
 
 public void withTimeout(double d) {
     // TODO Auto-generated method stub
+    //m_drive.wait((long)d*1000); TODO: FIGURE OUT HOW TO IMPLEMENT
     throw new UnsupportedOperationException("Unimplemented method 'withTimeout'");
 }
 }

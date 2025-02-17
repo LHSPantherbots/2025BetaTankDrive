@@ -4,6 +4,10 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -30,7 +34,6 @@ public class RobotContainer {
   private final AlgaeIntakeSubsystem intakeAlgae = new AlgaeIntakeSubsystem();
 
   private final DriveForward autoDriveForward = new DriveForward(drive);
-
    
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -42,6 +45,10 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+
+  //SmartDashboard.putData("Auto", new RunCommand(() -> autoDriveForward.execute()));
+
+
     // Configure the trigger bindings
     configureBindings();
 
@@ -49,7 +56,7 @@ public class RobotContainer {
         // The left stick controls translation of the robot.
         // Turning is controlled by the X axis of the right stick.
         new RunCommand(() -> drive.drive(-driverController.getLeftY(),
-                                          driverController.getRightY() 
+                                          driverController.getRightX() 
                                           ),drive));
   }
 
@@ -75,6 +82,7 @@ public class RobotContainer {
     // driverController.x().onTrue((new InstantCommand(() -> drive.drive(0,0), drive)));
     // driverController.povUp().onTrue(new InstantCommand(() -> drive.setLeftSetpoint(1.0), drive));
     // driverController.povDown().onTrue(new InstantCommand(() -> drive.setLeftSetpoint(0.0), drive));
+    
 
     operatorController.y().onTrue((new InstantCommand(() -> arm.armUp(), arm)));
     operatorController.x().onTrue((new InstantCommand(() -> arm.armDown(), arm)));
@@ -97,7 +105,7 @@ public class RobotContainer {
      // An example command will be run in autonomous
      // return Autos.exampleAuto(drive);
 
-     //return new RunCommand(() -> autoDriveForward.execute().andThen(autoDriveForward.end(false)));
+     //return new RunCommand(() -> autoDriveForward.execute());//.andThen(autoDriveForward.end(false));
 
     return new SequentialCommandGroup(autoDriveForward);
  }
