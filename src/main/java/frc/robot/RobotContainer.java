@@ -16,7 +16,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 // import frc.robot.commands.Autos;
-import frc.robot.commands.DriveForward;
 import frc.robot.subsystems.AlgaeIntakeSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.Drivetrain;
@@ -33,7 +32,6 @@ public class RobotContainer {
   private final ArmSubsystem arm = new ArmSubsystem();
   private final AlgaeIntakeSubsystem intakeAlgae = new AlgaeIntakeSubsystem();
 
-  private final DriveForward autoDriveForward = new DriveForward(drive);
    
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -106,8 +104,9 @@ public class RobotContainer {
      // return Autos.exampleAuto(drive);
 
      //return new RunCommand(() -> autoDriveForward.execute());//.andThen(autoDriveForward.end(false));
+     return new RunCommand(()->drive.drive(.5,.0),drive).withTimeout(2.0);
 
-    return new SequentialCommandGroup(autoDriveForward);
+ 
  }
 }
 
